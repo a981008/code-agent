@@ -1,0 +1,24 @@
+{
+  "name": "code-agent",
+  "version": "1.0.0",
+  "description": "Basic Agent Loop in TypeScript",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/main.ts",
+    "dev": "tsx src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
+    "dotenv": "^17.4.2",
+    "marked": "^18.0.2"
+  }
+}
