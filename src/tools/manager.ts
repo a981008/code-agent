@@ -1,7 +1,14 @@
-import { Tool } from "./tool.js";
+import { Tool, ToolDefinition } from './types';
+import { getRegisteredTools } from './registry';
 
 export class ToolManager {
   private tools: Map<string, Tool> = new Map();
+
+  constructor() {
+    for (const tool of getRegisteredTools()) {
+      this.register(tool);
+    }
+  }
 
   register(tool: Tool): void {
     this.tools.set(tool.name, tool);
@@ -19,15 +26,7 @@ export class ToolManager {
     return Array.from(this.tools.values());
   }
 
-  getDefinitions(): Array<{
-    name: string;
-    description: string;
-    input_schema: object;
-  }> {
-    return this.list().map((tool) => ({
-      name: tool.name,
-      description: tool.description,
-      input_schema: tool.inputSchema,
-    }));
+  getDefinitions(): ToolDefinition[] {
+    return this.list();
   }
 }

@@ -1,6 +1,9 @@
-import "dotenv/config";
-import { CLI } from "./cli.js";
-import { Console } from "./console.js";
+import { resolve } from 'path';
+import { config } from 'dotenv';
+config({ path: resolve(process.cwd(), '.env') });
+
+import { CLI } from './cli';
+import { Console } from './console';
 
 const cli = new CLI();
-cli.run().catch((e) => Console.error(e));
+cli.run().catch(e => Console.error(e));

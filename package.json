@@ -4,21 +4,34 @@
   "description": "Basic Agent Loop in TypeScript",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "build": "npm run format && tsc",
     "start": "tsx src/main.ts",
-    "dev": "tsx src/main.ts"
+    "dev": "tsx src/main.ts",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
     "dotenv": "^17.4.2",
-    "marked": "^18.0.2"
+    "marked": "^18.0.2",
+    "openai": "^6.35.0"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
   }
 }

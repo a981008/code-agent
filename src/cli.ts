@@ -1,6 +1,6 @@
-import * as readline from "readline";
-import { Agent } from "./agent.js";
-import { Console, Color } from "./console.js";
+import * as readline from 'readline';
+import { Agent } from './agent';
+import { Console, Color } from './console';
 
 export class CLI {
   private rl: readline.Interface;
@@ -20,14 +20,14 @@ export class CLI {
     while (true) {
       const query = await Console.ask(this.rl);
 
-      if (!query.trim() || query.toLowerCase() === "q" || query.toLowerCase() === "exit") {
+      if (!query.trim() || query.toLowerCase() === 'q' || query.toLowerCase() === 'exit') {
         console.log(`\n${Color.Gray}Goodbye!${Color.Reset}\n`);
         break;
       }
 
       await this.agent.think(query);
 
-      const response = this.agent.getResponse();
+      const response = this.agent.getResponse().trim();
       if (response) {
         Console.output(response);
       }
