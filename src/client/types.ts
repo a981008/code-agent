@@ -1,5 +1,5 @@
 import { ContentBlock, MessageParam } from '../context/types';
-import { ToolDefinition } from '../tools/types';
+import { ToolDefinition } from '../tool/types';
 
 export interface LLMResponse {
   content: ContentBlock[];

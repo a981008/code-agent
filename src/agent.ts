@@ -1,5 +1,5 @@
-import { ToolResult, Tool } from './tools/types';
-import { ToolManager } from './tools/manager';
+import { ToolResult, Tool } from './tool/types';
+import { ToolManager } from './tool/manager';
 import { LLMClient } from './client/types';
 import { createLLMClient } from './client/factory';
 import { Console } from './console';
@@ -53,7 +53,7 @@ export class Agent {
           if (tool) {
             const output = await tool.execute(block.input);
             Console.tool_call(`${block.name}: ${JSON.stringify(block.input)}`);
-            Console.tool_result(`${output.slice(0, 500)}`);
+            Console.tool_result(`${output}`);
             results.push({
               type: 'tool_result',
               tool_use_id: block.id,

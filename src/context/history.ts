@@ -1,5 +1,5 @@
 import { ContentBlock, MessageParam, TextBlock, ContentBlockType, RoleType } from './types';
-import { ToolResult } from '../tools/types';
+import { ToolResult } from '../tool/types';
 
 export class History {
   private messages: MessageParam[] = [];

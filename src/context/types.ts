@@ -1,4 +1,4 @@
-import { ToolResult } from '../tools/types';
+import { ToolResult } from '../tool/types';
 
 export enum ContentBlockType {
   Text = 'text',

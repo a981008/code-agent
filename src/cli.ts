@@ -1,7 +1,7 @@
 import * as readline from 'readline';
 import { Agent } from './agent';
 import { Console, Color } from './console';
-import { SubagentTool } from './tools/subagent';
+import { SubagentTool } from './tool/subagent';
 
 const WORKDIR = process.cwd();
 const SYSTEM_PROMPT = `You are a coding agent called code-agent at ${WORKDIR}. Use the subagent tool to delegate exploration or subtasks.`;

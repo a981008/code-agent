@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { LLMMessage, LLMResponse } from './types';
 import { ContentBlockType } from '../context/types';
-import { ToolDefinition } from '../tools/types';
+import { ToolDefinition } from '../tool/types';
 
 export class AnthropicClient {
   private model: string;
