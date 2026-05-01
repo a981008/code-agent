@@ -2,6 +2,7 @@ import { Tool } from './types';
 import { BashTool } from './bash';
 import { ReadTool, WriteTool, EditTool } from './file';
 import { WebFetchTool, WebSearchTool } from './web';
+import { SubagentTool } from './subagent';
 
 const registeredTools: Tool[] = [];
 

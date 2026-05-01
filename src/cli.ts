@@ -1,6 +1,10 @@
 import * as readline from 'readline';
 import { Agent } from './agent';
 import { Console, Color } from './console';
+import { SubagentTool } from './tools/subagent';
+
+const WORKDIR = process.cwd();
+const SYSTEM_PROMPT = `You are a coding agent called code-agent at ${WORKDIR}. Use the subagent tool to delegate exploration or subtasks.`;
 
 export class CLI {
   private rl: readline.Interface;
@@ -11,7 +15,9 @@ export class CLI {
       input: process.stdin,
       output: process.stdout,
     });
-    this.agent = new Agent();
+
+    this.agent = new Agent(SYSTEM_PROMPT);
+    this.agent.registerTool(new SubagentTool());
   }
 
   async run(): Promise<void> {

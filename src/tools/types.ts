@@ -3,7 +3,7 @@ export abstract class Tool implements ToolDefinition {
   abstract description: string;
   abstract input_schema: Record<string, unknown>;
 
-  abstract execute(input: Record<string, unknown>): string;
+  abstract execute(input: Record<string, unknown>): string | Promise<string>;
 }
 
 export interface ToolResult {

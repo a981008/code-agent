@@ -9,6 +9,7 @@
 - **对话历史**：自动维护用户/助手消息历史
 - **彩色输出**：CLI 带颜色标注（agent/tool/error）
 - **环境配置**：通过 `.env` 文件配置模型和 API
+- **Subagent 委托**：复杂任务可委托给 subagent 处理，支持嵌套调用
 
 ## 配置
 
@@ -58,13 +59,16 @@ src/
 │   └── types.ts      # 内容块类型定义
 ├── tools/           # 工具实现
 │   ├── bash.ts       # Bash 工具
+│   ├── file.ts       # 文件操作工具（读/写/编辑）
 │   ├── manager.ts    # 工具管理器
 │   ├── registry.ts   # 工具注册表
-│   └── types.ts      # 工具类型定义
+│   ├── subagent.ts   # Subagent 工具（任务委托）
+│   ├── types.ts      # 工具类型定义
+│   └── web.ts        # Web 工具（fetch/search）
 ├── agent.ts         # Agent 核心逻辑（循环、工具调用）
 ├── cli.ts           # CLI 交互（readline 问答）
-├── console.ts      # 输出格式化（颜色标注）
-└── main.ts         # 入口点
+├── console.ts       # 输出格式化（颜色标注）
+└── main.ts          # 入口点
 ```
 
 ## 添加工具
@@ -79,7 +83,24 @@ registerTool(new NewTool());
 - `name`：工具名称
 - `description`：工具描述（供 LLM 理解）
 - `input_schema`：JSON Schema 输入参数
-- `execute(input)`：执行逻辑，返回字符串结果
+- `execute(input)`：执行逻辑，返回字符串或 Promise<string>结果
+
+## Subagent 委托
+
+SubagentTool 允许将复杂任务委托给独立的 Agent 实例处理：
+
+```typescript
+// 使用 subagent 工具
+subagent: {
+  task: "分析 src/ 目录下所有文件的错误处理模式"
+}
+```
+
+SubagentTool 的特点：
+- 使用动态导入避免循环依赖
+- 委托给独立的 Agent 实例处理任务
+- 通过 system prompt 防止 subagent 递归调用自己
+- 使用 Console.line() 输出分隔标记：`[subagent] Starting task` / `[subagent] Completed`
 
 ## 命令
 

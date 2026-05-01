@@ -7,18 +7,15 @@ import { History } from './context/history';
 import { ContentBlockType } from './context/types';
 
 export class Agent {
-  private llm: LLMClient;
-  private toolManager: ToolManager;
-  private system: string;
-  private history: History;
-  private totalUsage = { input: 0, output: 0 };
-  private readonly SYSTEM_PROMPT =
-    "You are a coding agent called code-agent. Use bash to solve tasks. Act, don't explain.";
+  protected llm: LLMClient;
+  protected toolManager: ToolManager;
+  protected system: string;
+  protected history: History;
 
-  constructor() {
+  constructor(systemPrompt: string) {
     this.llm = createLLMClient();
     this.toolManager = new ToolManager();
-    this.system = this.SYSTEM_PROMPT;
+    this.system = systemPrompt;
     this.history = new History();
   }
 
@@ -54,9 +51,9 @@ export class Agent {
         if (block.type === ContentBlockType.ToolUse) {
           const tool = this.toolManager.get(block.name);
           if (tool) {
-            const output = tool.execute(block.input);
+            const output = await tool.execute(block.input);
             Console.tool_call(`${block.name}: ${JSON.stringify(block.input)}`);
-            Console.tool_result(output.slice(0, 500));
+            Console.tool_result(`${output.slice(0, 500)}`);
             results.push({
               type: 'tool_result',
               tool_use_id: block.id,

@@ -29,6 +29,10 @@ export class Console {
     console.log(`${Color.Gray}tool_result >> ${text}${Color.Reset}`);
   }
 
+  static line(text?: string): void {
+    console.log(`${Color.Gray}===================${text}===================${Color.Reset}`);
+  }
+
   static banner(): void {
     const model =
       process.env.ANTHROPIC_MODEL || process.env.MODEL_ID || 'claude-sonnet-4-7-20250514';
