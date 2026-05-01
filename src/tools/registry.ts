@@ -1,5 +1,7 @@
 import { Tool } from './types';
 import { BashTool } from './bash';
+import { ReadTool, WriteTool, EditTool } from './file';
+import { WebFetchTool, WebSearchTool } from './web';
 
 const registeredTools: Tool[] = [];
 
@@ -12,3 +14,8 @@ export function getRegisteredTools(): Tool[] {
 }
 
 registerTool(new BashTool());
+registerTool(new ReadTool());
+registerTool(new WriteTool());
+registerTool(new EditTool());
+registerTool(new WebFetchTool());
+registerTool(new WebSearchTool());
