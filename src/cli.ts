@@ -8,14 +8,13 @@ const SYSTEM_PROMPT = `You are a coding agent called code-agent at ${WORKDIR}. U
 
 export class CLI {
   private rl: readline.Interface;
-  private agent: Agent;
+  private agent!: Agent;
 
   constructor() {
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
-
     this.agent = new Agent(SYSTEM_PROMPT);
     this.agent.registerTool(new SubagentTool());
   }

@@ -3,6 +3,7 @@ import { BashTool } from './bash';
 import { ReadTool, WriteTool, EditTool } from './file';
 import { WebFetchTool, WebSearchTool } from './web';
 import { SubagentTool } from './subagent';
+import { SkillTool } from './skill';
 
 const registeredTools: Tool[] = [];
 
@@ -20,3 +21,4 @@ registerTool(new WriteTool());
 registerTool(new EditTool());
 registerTool(new WebFetchTool());
 registerTool(new WebSearchTool());
+registerTool(new SkillTool());

@@ -5,18 +5,23 @@ import { createLLMClient } from './client/factory';
 import { Console } from './console';
 import { History } from './context/history';
 import { ContentBlockType } from './context/types';
+import { skillLoader } from './skill/loader';
 
 export class Agent {
-  protected llm: LLMClient;
-  protected toolManager: ToolManager;
-  protected system: string;
-  protected history: History;
+  private llm: LLMClient;
+  private toolManager: ToolManager;
+  private system: string;
+  private history: History;
 
   constructor(systemPrompt: string) {
     this.llm = createLLMClient();
     this.toolManager = new ToolManager();
-    this.system = systemPrompt;
     this.history = new History();
+    const skills = skillLoader
+      .list()
+      .map(s => `- ${s.name}: ${s.description}`)
+      .join('\n');
+    this.system = systemPrompt + '\n\nAvailable skills:\n' + skills;
   }
 
   registerTool(tool: Tool): void {
