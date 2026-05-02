@@ -22,11 +22,15 @@ export class Console {
   }
 
   static tool_call(text: string): void {
-    console.log(`${Color.Gray}tool_call >> ${text}${Color.Reset}`);
+    const maxLen = 100;
+    const display = text.length > maxLen ? text.slice(0, maxLen) + '...(truncated)' : text;
+    console.log(`${Color.Gray}tool_call >> ${display}${Color.Reset}`);
   }
 
   static tool_result(text: string): void {
-    console.log(`${Color.Gray}tool_result >> ${text}${Color.Reset}`);
+    const maxLen = 100;
+    const display = text.length > maxLen ? text.slice(0, maxLen) + '...(truncated)' : text;
+    console.log(`${Color.Gray}tool_result >> ${display}${Color.Reset}`);
   }
 
   static line(text?: string): void {
