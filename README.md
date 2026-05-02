@@ -140,7 +140,36 @@ This is the skill's prompt content...
 
 ## Subagent 委托
 
-使用 `subagent` 工具将复杂任务委托给独立 Agent 处理：
+Subagent 机制允许将复杂任务委托给独立的 Agent 实例处理，适用于需要深入分析、多步骤处理的场景。
+
+### 如何触发 Subagent
+
+Agent 会在遇到以下场景时自动使用 subagent：
+
+1. **复杂的多步骤任务**
+   ```
+   user >> 帮我重构 src/tool 目录下的所有工具类，统一错误处理方式
+   ```
+
+2. **深入的代码分析**
+   ```
+   user >> 分析整个项目的依赖关系，找出潜在的循环依赖
+   ```
+
+3. **需要探索性工作**
+   ```
+   user >> 调研一下如何实现流式输出的进度条显示
+   ```
+
+### 手动使用示例
+
+你也可以明确要求使用 subagent：
+
+```
+user >> 请使用 subagent 分析 src/ 目录下所有文件的错误处理模式
+```
+
+### 工具调用格式
 
 ```typescript
 {
@@ -151,10 +180,12 @@ This is the skill's prompt content...
 }
 ```
 
-特性：
-- 使用独立 Agent 实例
-- 防止递归调用自己
-- 彩色输出标记 `[subagent] Starting task` / `[subagent] Completed`
+### 特性
+
+- ✅ 使用独立 Agent 实例，拥有独立的对话上下文
+- ✅ 防止递归调用（subagent 不能再调用 subagent）
+- ✅ 彩色输出标记 `[subagent] Starting task` / `[subagent] Completed`
+- ✅ 完整的工具访问权限（除了 subagent 自身）
 
 ## CLI 使用示例
 
